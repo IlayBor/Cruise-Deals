@@ -29,14 +29,27 @@ deals_tables = soup.find_all("table", class_="ticker deals")
 
 for deal_table in deals_tables:
     region_name = deal_table.find_previous_sibling("table", class_="ticker region").get_text(strip=True)
-    print("=== Region ===")
-    print(region_name)
 
-    print("=== Deals ===")
     rows = deal_table.find_all("tr")
     for row in rows:
-        cells = row.find_all("td")
-        if cells:
-            row_text = " | ".join(cell.get_text(strip=True) for cell in cells)
-            print(row_text)
-    print()
+        fd = row.find("td", class_="fd").get_text(strip=True)
+        n = row.find("td", class_="n").get_text(strip=True)
+        d = row.find("td", class_="d").get_text(strip=True)
+        e = row.find("td", class_="e").get_text(strip=True)
+        ls = row.find("td", class_="ls").get_text(strip=True)
+        r = row.find("td", class_="r").get_text(strip=True)
+        r = row.find("td", class_="r").get_text(strip=True)
+        br = row.find("td", class_="br").get_text(strip=True)
+        our = row.find("td", class_="our").get_text(strip=True)
+        p = row.find("td", class_="p").get_text(strip=True)
+
+        st = row.find("td", class_="st").get_text(strip=True)
+        st_suite = row.find("td", class_="st suite").get_text(strip=True)
+        st_onboard_credit = row.find("td", class_="st onboard-credit").get_text(strip=True)
+        st_resident_rate = row.find("td", class_="st resident-rate").get_text(strip=True)
+        st_oceanview = row.find("td", class_="st oceanview").get_text(strip=True)
+        st_reduced_again = row.find("td", class_="st reduced-again").get_text(strip=True)
+        st_sold_out = row.find("td", class_="st sold-out").get_text(strip=True)
+        st_new_offer = row.find("td", class_="st new-offer").get_text(strip=True)
+        st_balcony = row.find("td", class_="st balcony").get_text(strip=True)
+        

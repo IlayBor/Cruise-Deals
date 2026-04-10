@@ -1,5 +1,5 @@
 services:
-  postgres:
+  cruise_deals_postgres:
     image: postgres:latest
     container_name: cruise_deals_postgres
     hostname: cruise_deals_postgres

@@ -1,0 +1,4 @@
+include:
+  - path: ./Airflow/docker-compose.yml
+  - path: ./Metabase/docker-compose.yml
+  - path: ./Postgres/docker-compose.yml

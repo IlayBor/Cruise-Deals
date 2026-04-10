@@ -47,6 +47,11 @@ def scrape_deals(html_content):
             for key in row_keys:
                 td = row.find("td", class_=key)
                 row_data[key] = td.get_text(strip=True) if td else None
+                
+                if key == "fd" and td:
+                    fd_url = "https://www.vacationstogo.com" + td.find('a').get('href') if td.find('a') else None
+                    row_data["fd_url"] = fd_url
+
             row_data["region"] = region_name
             total_rows.append(row_data)
 

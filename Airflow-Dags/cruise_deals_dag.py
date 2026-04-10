@@ -3,7 +3,8 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import ProgrammingError
 import logging
 
 from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig
@@ -65,7 +66,14 @@ def scrape_deals(html_content):
 def load_df_to_postgres(df, table_name="deals"):
     logging.info("Starting to load deals into PostgreSQL...")
     engine = create_engine("postgresql://ilaybor:24342434@cruise_deals_postgres:5432/cruise_deals_db")
-    df.to_sql(table_name, engine, if_exists="replace", index=False)
+
+    with engine.begin() as conn:
+        # Create the table with the correct schema if it doesn't exist
+        df.head(0).to_sql(table_name, engine, if_exists="append", index=False)
+        # Truncate the table before loading new data
+        conn.execute(text(f"TRUNCATE TABLE {table_name}"))
+        # Load the new data into the table
+        df.to_sql(table_name, conn, if_exists="append", index=False)
     logging.info("Finished loading deals into PostgreSQL.")
 
 profile_config = ProfileConfig(

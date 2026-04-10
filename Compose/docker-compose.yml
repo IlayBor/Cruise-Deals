@@ -2,3 +2,8 @@ include:
   - path: ./Airflow/docker-compose.yml
   - path: ./Metabase/docker-compose.yml
   - path: ./Postgres/docker-compose.yml
+
+networks:
+  cruise-deals-network:
+    name: cruise-deals-network
+    driver: bridge

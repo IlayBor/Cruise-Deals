@@ -6,6 +6,9 @@ import pandas as pd
 from sqlalchemy import create_engine
 import logging
 
+from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig
+from cosmos.profiles import PostgresUserPasswordProfileMapping
+
 
 def get_html_page():
     LOGIN_URL = "https://www.vacationstogo.com/login.cfm?t=y"
@@ -57,6 +60,15 @@ def load_df_to_postgres(df, table_name="deals"):
     df.to_sql(table_name, engine, if_exists="replace", index=False)
     logging.info("Finished loading deals into PostgreSQL.")
 
+profile_config = ProfileConfig(
+    profile_name="dbt_project",
+    target_name="dev",
+    profile_mapping=PostgresUserPasswordProfileMapping(
+        conn_id="postgres_dbt",
+        profile_args={"schema": "public"},
+    ),
+)
+
 @dag(
     dag_id="cruise_deals",
     schedule="@daily",
@@ -65,11 +77,21 @@ def load_df_to_postgres(df, table_name="deals"):
     tags=["cruise", "deals", "scraping"],
 )
 def cruise_deals_dag():
+
     @task()
     def scrape_and_load():
         html_content = get_html_page()
         deals_df = scrape_deals(html_content)
         load_df_to_postgres(deals_df, "deals")
-    scrape_and_load()
+
+    dbt_transform = DbtTaskGroup(
+        group_id="dbt_transform",
+        project_config=ProjectConfig("/opt/airflow/dbt_project"),
+        profile_config=profile_config,
+        operator_args={"install_deps": True},
+    )
+
+    scrape_and_load() >> dbt_transform
+
 
 cruise_deals_dag()

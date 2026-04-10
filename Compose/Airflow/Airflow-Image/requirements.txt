@@ -1,0 +1,5 @@
+dbt-postgres
+astronomer-cosmos
+pandas
+sqlalchemy
+beautifulsoup4

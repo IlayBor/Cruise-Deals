@@ -40,6 +40,7 @@ def scrape_deals(html_content):
         region_name = deal_table.find_previous_sibling("table", class_="ticker region").get_text(strip=True)
 
         rows = deal_table.find_all("tr")
+        # Define the keys for the columns we want to extract
         row_keys = ["fd", "n", "d", "e", "ls", "r", "br", "our", "p", "st"]
 
         for row in rows:
@@ -48,10 +49,12 @@ def scrape_deals(html_content):
                 td = row.find("td", class_=key)
                 row_data[key] = td.get_text(strip=True) if td else None
                 
+                # Special handling for "fd" (fast deal code) to extract the URL
                 if key == "fd" and td:
                     fd_url = "https://www.vacationstogo.com" + td.find('a').get('href') if td.find('a') else None
                     row_data["fd_url"] = fd_url
 
+            # Add the region name to the row data
             row_data["region"] = region_name
             total_rows.append(row_data)
 

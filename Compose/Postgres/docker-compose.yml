@@ -17,6 +17,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - cruise-deals-network
 
 volumes:
   cruise_deals_postgres_data:

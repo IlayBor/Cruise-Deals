@@ -11,6 +11,8 @@ services:
       - "5433:5432"
     volumes:
       - metabase_postgres_data:/var/lib/postgresql/data
+    networks:
+      - cruise-deals-network
 
   # Metabase
   metabase:
@@ -33,6 +35,8 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
+    networks:
+      - cruise-deals-network
 
 volumes:
   metabase_postgres_data:

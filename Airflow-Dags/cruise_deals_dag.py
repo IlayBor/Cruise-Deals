@@ -65,7 +65,7 @@ profile_config = ProfileConfig(
     target_name="dev",
     profile_mapping=PostgresUserPasswordProfileMapping(
         conn_id="postgres_dbt",
-        profile_args={"schema": "public"},
+        profile_args={"schema": "modeling"},
     ),
 )
 

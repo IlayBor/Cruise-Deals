@@ -76,6 +76,7 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     # The following line can be used to set a custom config file, stored in the local config folder
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    AIRFLOW_CONN_POSTGRES_DBT: postgres://ilaybor:24342434@cruise_deals_postgres:5432/cruise_deals_db
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/Airflow-Dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/Compose/Airflow/Extras/logs:/opt/airflow/logs

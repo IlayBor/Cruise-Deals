@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: cruise_deals_postgres
+    hostname: cruise_deals_postgres
+    environment:
+      POSTGRES_USER: ilaybor
+      POSTGRES_DB: cruise_deals_db
+      POSTGRES_PASSWORD: 24342434
+    ports:
+      - "5436:5432"
+    volumes:
+      - cruise_deals_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ilaybor -d cruise_deals_db -h localhost -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  cruise_deals_postgres_data:

@@ -42,7 +42,7 @@ def scrape_deals(html_content):
 
         rows = deal_table.find_all("tr")
         # Define the keys for the columns we want to extract
-        row_keys = ["fd", "n", "dt", "d", "e", "ls", "r", "br", "our", "p", "st"]
+        row_keys = ["fd", "n", "dt", "d", "e", "ls", "r", "br", "our", "st"]
 
         for row in rows:
             row_data = {}

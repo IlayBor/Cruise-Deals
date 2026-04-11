@@ -47,4 +47,3 @@ calculated as (
 
 select *
 from calculated
-i wan

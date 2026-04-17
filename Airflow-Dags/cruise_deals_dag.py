@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import ProgrammingError
 import logging
 
-from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig
+from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, RenderConfig
 from cosmos.profiles import PostgresUserPasswordProfileMapping
 
 
@@ -104,6 +104,7 @@ def cruise_deals_dag():
         group_id="dbt_transform",
         project_config=ProjectConfig("/opt/airflow/dbt_project"),
         profile_config=profile_config,
+        render_config=RenderConfig(select=["+fct_deals.sql"]),
         operator_args={"install_deps": True},
     )
 

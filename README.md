@@ -70,3 +70,19 @@ docker compose up -d
 
 Airflow UI: http://localhost:8090  
 Metabase: http://localhost:4000
+
+## Connecting Metabase to PostgreSQL
+
+After deployment, Metabase requires a one-time manual setup to connect to the PostgreSQL data warehouse. On first launch, go through the Metabase onboarding wizard and enter the following connection details when prompted to add a database:
+
+| Field    | Value                   |
+|----------|-------------------------|
+| Type     | PostgreSQL              |
+| Host     | `cruise_deals_postgres` |
+| Port     | `5432`                  |
+| Database | `cruise_deals_db`       |
+| Username | `ilaybor`               |
+| Password | `24342434`              |
+| Schema   | `marts`                 |
+
+> **Note:** Use `cruise_deals_postgres` as the host — this is the Docker service hostname, not `localhost`. Metabase connects to PostgreSQL from within the Docker network, so the service name is used for internal routing.

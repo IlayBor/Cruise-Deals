@@ -79,7 +79,7 @@ After deployment, Metabase requires a one-time manual setup to connect to the Po
 |----------|-------------------------|
 | Type     | PostgreSQL              |
 | Host     | `cruise_deals_postgres` |
-| Port     | `5432`                  |
+| Port     | `5436`                  |
 | Database | `cruise_deals_db`       |
 | Username | `ilaybor`               |
 | Password | `24342434`              |

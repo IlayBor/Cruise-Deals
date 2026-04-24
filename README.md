@@ -14,10 +14,10 @@ An end-to-end ELT data pipeline that scrapes daily cruise deals, stores and tran
 4. **Visualize** — Metabase connects to the `marts.fct_deals` table and displays the processed deals.
 
 ## Example
+
 This is my day-to-day report to hunt for deals
 
-<img width="2045" height="757" alt="image" src="https://github.com/user-attachments/assets/e33f6510-2df1-4df8-bf55-0d80a3166380" />
-
+<img width="2534" height="1104" alt="image" src="https://github.com/user-attachments/assets/861c6c0e-bd3e-4f58-8829-098e8c9594ec" />
 
 ## Tech Stack
 

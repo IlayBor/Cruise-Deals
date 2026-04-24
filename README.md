@@ -4,32 +4,7 @@ An end-to-end ELT data pipeline that scrapes daily cruise deals, stores and tran
 
 ## Architecture
 
-```
-vacationstogo.com
-       │
-       │  HTTP scrape (BeautifulSoup)
-       ▼
- ┌─────────────┐
- │   Airflow   │  Orchestrates the full pipeline on a daily schedule
- │  (DAG)      │
- └──────┬──────┘
-        │ raw insert (SQLAlchemy)
-        ▼
- ┌─────────────────┐
- │   PostgreSQL    │  Central data warehouse
- │  cruise_deals   │  ├── public    (raw scraped data)
- │      _db        │  ├── staging   (cleaned & typed)
- └────────┬────────┘  └── marts     (fact table for BI)
-          ▲
-          │  SQL transformations
- ┌────────┴────────┐
- │      dbt        │  Runs inside Airflow via Astronomer Cosmos
- └─────────────────┘
-          │
- ┌────────▼────────┐
- │    Metabase     │  Queries the marts schema for dashboards
- └─────────────────┘
-```
+<img width="1875" height="498" alt="image" src="https://github.com/user-attachments/assets/a646af7d-d3ad-48fc-88bb-7cd36d114b39" />
 
 ### How it works
 
